@@ -1,15 +1,15 @@
 {
-  "name": "Rustite-darwin-x64",
-  "version": "0.0.0",
+  "name": "rustite-darwin-x64",
+  "version": "1.0.0",
   "os": [
     "darwin"
   ],
   "cpu": [
     "x64"
   ],
-  "main": "Rustite.darwin-x64.node",
+  "main": "rustite.darwin-x64.node",
   "files": [
-    "Rustite.darwin-x64.node"
+    "rustite.darwin-x64.node"
   ],
   "license": "MIT",
   "engines": {

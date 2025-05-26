@@ -1,3 +1,3 @@
-# `Rustite-linux-x64-musl`
+# `rustite-linux-x64-musl`
 
-This is the **x86_64-unknown-linux-musl** binary for `Rustite`
+This is the **x86_64-unknown-linux-musl** binary for `rustite`

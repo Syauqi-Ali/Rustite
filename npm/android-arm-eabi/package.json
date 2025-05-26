@@ -1,15 +1,15 @@
 {
-  "name": "Rustite-android-arm-eabi",
-  "version": "0.0.0",
+  "name": "rustite-android-arm-eabi",
+  "version": "1.0.0",
   "os": [
     "android"
   ],
   "cpu": [
     "arm"
   ],
-  "main": "Rustite.android-arm-eabi.node",
+  "main": "rustite.android-arm-eabi.node",
   "files": [
-    "Rustite.android-arm-eabi.node"
+    "rustite.android-arm-eabi.node"
   ],
   "license": "MIT",
   "engines": {

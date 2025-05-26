@@ -1,3 +1,3 @@
-# `Rustite-android-arm-eabi`
+# `rustite-android-arm-eabi`
 
-This is the **armv7-linux-androideabi** binary for `Rustite`
+This is the **armv7-linux-androideabi** binary for `rustite`

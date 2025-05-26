@@ -1,15 +1,15 @@
 {
-  "name": "Rustite-linux-x64-gnu",
-  "version": "0.0.0",
+  "name": "rustite-linux-x64-gnu",
+  "version": "1.0.0",
   "os": [
     "linux"
   ],
   "cpu": [
     "x64"
   ],
-  "main": "Rustite.linux-x64-gnu.node",
+  "main": "rustite.linux-x64-gnu.node",
   "files": [
-    "Rustite.linux-x64-gnu.node"
+    "rustite.linux-x64-gnu.node"
   ],
   "license": "MIT",
   "engines": {

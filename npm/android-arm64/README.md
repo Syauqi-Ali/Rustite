@@ -1,3 +1,3 @@
-# `Rustite-android-arm64`
+# `rustite-android-arm64`
 
-This is the **aarch64-linux-android** binary for `Rustite`
+This is the **aarch64-linux-android** binary for `rustite`

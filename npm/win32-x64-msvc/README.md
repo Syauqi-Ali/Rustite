@@ -1,3 +1,3 @@
-# `Rustite-win32-x64-msvc`
+# `rustite-win32-x64-msvc`
 
-This is the **x86_64-pc-windows-msvc** binary for `Rustite`
+This is the **x86_64-pc-windows-msvc** binary for `rustite`

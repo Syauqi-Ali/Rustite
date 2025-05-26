@@ -1,15 +1,15 @@
 {
-  "name": "Rustite-win32-x64-msvc",
-  "version": "0.0.0",
+  "name": "rustite.win64.node",
+  "version": "1.0.0",
   "os": [
     "win32"
   ],
   "cpu": [
     "x64"
   ],
-  "main": "Rustite.win32-x64-msvc.node",
+  "main": "rustite.win32-x64-msvc.node",
   "files": [
-    "Rustite.win32-x64-msvc.node"
+    "rustite.win32-x64-msvc.node"
   ],
   "license": "MIT",
   "engines": {

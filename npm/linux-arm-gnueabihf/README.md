@@ -1,3 +1,3 @@
-# `Rustite-linux-arm-gnueabihf`
+# `rustite-linux-arm-gnueabihf`
 
-This is the **armv7-unknown-linux-gnueabihf** binary for `Rustite`
+This is the **armv7-unknown-linux-gnueabihf** binary for `rustite`

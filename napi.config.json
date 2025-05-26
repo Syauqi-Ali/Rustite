@@ -1,0 +1,14 @@
+{
+  "targets": [
+    "x86_64-apple-darwin",
+    "aarch64-apple-darwin"
+  ],
+  "universal": {
+    "platform": "darwin",
+    "arch": "universal",
+    "targets": [
+      "x86_64-apple-darwin",
+      "aarch64-apple-darwin"
+    ]
+  }
+}

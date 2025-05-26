@@ -1,3 +1,3 @@
-# `Rustite-darwin-arm64`
+# `rustite-darwin-arm64`
 
-This is the **aarch64-apple-darwin** binary for `Rustite`
+This is the **aarch64-apple-darwin** binary for `rustite`
