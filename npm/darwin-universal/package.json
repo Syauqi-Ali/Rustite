@@ -1,0 +1,15 @@
+{
+  "name": "Rustite-darwin-universal",
+  "version": "0.0.0",
+  "os": [
+    "darwin"
+  ],
+  "main": "Rustite.darwin-universal.node",
+  "files": [
+    "Rustite.darwin-universal.node"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">= 10"
+  }
+}

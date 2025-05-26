@@ -1,26 +1,46 @@
 {
-  "name": "rustite",
-  "version": "0.1.0",
+  "name": "Rustite",
+  "version": "0.0.0",
   "main": "index.js",
-  "files": [
-    "native/*"
-  ],
+  "types": "index.d.ts",
   "napi": {
-    "name": "native/rustite"
-  },
-  "scripts": {
-    "install": "node install.js",
-    "build": "napi build --release",
-    "prebuild": "napi build --platform --release",
-    "publish": "napi prepublish"
-  },
-  "devDependencies": {
-    "@napi-rs/cli": "^2.16.1"
+    "name": "Rustite",
+    "triples": {
+      "additional": [
+        "aarch64-apple-darwin",
+        "aarch64-linux-android",
+        "aarch64-unknown-linux-gnu",
+        "aarch64-unknown-linux-musl",
+        "aarch64-pc-windows-msvc",
+        "armv7-unknown-linux-gnueabihf",
+        "armv7-unknown-linux-musleabihf",
+        "x86_64-unknown-linux-musl",
+        "x86_64-unknown-freebsd",
+        "i686-pc-windows-msvc",
+        "armv7-linux-androideabi",
+        "universal-apple-darwin",
+        "riscv64gc-unknown-linux-gnu"
+      ]
+    }
   },
   "license": "MIT",
-  "optionalDependencies": {
-    "rustite-win32-x64-msvc": "0.1.0",
-    "rustite-darwin-x64": "0.1.0",
-    "rustite-linux-x64-gnu": "0.1.0"
+  "devDependencies": {
+    "@napi-rs/cli": "^2.18.4",
+    "ava": "^6.0.1"
+  },
+  "ava": {
+    "timeout": "3m"
+  },
+  "engines": {
+    "node": ">= 10"
+  },
+  "scripts": {
+    "artifacts": "napi artifacts",
+    "build": "napi build --platform --release",
+    "build:debug": "napi build --platform",
+    "prepublishOnly": "napi prepublish -t npm",
+    "test": "ava",
+    "universal": "napi universal",
+    "version": "napi version"
   }
 }
