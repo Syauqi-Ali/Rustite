@@ -1,15 +1,25 @@
-const { existsSync } = require('fs');
-const { join } = require('path');
-const { platform, arch } = require('os');
+const { existsSync, copyFileSync } = require("fs");
+const { join } = require("path");
+const os = require("os");
 
-const filename = `rustite.${platform()}-${arch()}.node`;
-const binaryPath = join(__dirname, 'artifacts', filename);
+if (process.env.CI === "true") {
+  console.log("Skipping install script in CI environment.");
+  process.exit(0);
+}
 
-if (!existsSync(binaryPath)) {
-  console.error(`Binary for your platform not found: ${binaryPath}`);
+const platform = os.platform();
+const arch = os.arch();
+
+const binaryName = `rustite.${platform}-${arch}.node`;
+const sourcePath = join(__dirname, "artifacts", binaryName);
+const targetPath = join(__dirname, "index.node");
+
+if (!existsSync(sourcePath)) {
+  console.error(`Prebuilt binary not found: ${binaryName}`);
   process.exit(1);
 }
 
-require('fs').copyFileSync(binaryPath, join(__dirname, 'index.node'));
+copyFileSync(sourcePath, targetPath);
+console.log(`Copied prebuilt binary: ${binaryName}`);
 
 module.exports = require('./index.node');
