@@ -8,8 +8,8 @@
   "scripts": {
     "install": "node install.js",
     "build": "napi build --release",
-    "prebuild": "napi build --platform --strip",
-    "publish": "napi publish"
+    "prebuild": "napi build --platform --release",
+    "publish": "napi prepublish"
   },
   "devDependencies": {
     "@napi-rs/cli": "^2.16.1"
