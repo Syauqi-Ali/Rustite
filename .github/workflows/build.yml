@@ -37,8 +37,10 @@ jobs:
       - name: Build and prebuild
         run: npm run prebuild
 
-      - name: Upload prebuilds
-        run: npm run publish
+      - name: Run napi prepublish
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          napi prepublish --gh-release-name "Release rustite@0.1.0"
+
           
