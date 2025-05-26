@@ -21,7 +21,7 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --global @napi-rs/cli
 
       - name: Build with napi
         run: napi build --platform --release
