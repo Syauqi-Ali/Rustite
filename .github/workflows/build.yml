@@ -7,7 +7,6 @@ on:
     paths:
       - 'src/**'
       - 'Cargo.toml'
-      - 'Cargo.lock'
       - 'package.json'
 
 jobs:
