@@ -2,8 +2,9 @@ name: Build & Upload Prebuild
 
 on:
   push:
-    tags:
-      - "v*"
+    branches: [ "main" ]
+  release:
+    types: [published]
 
 jobs:
   build:

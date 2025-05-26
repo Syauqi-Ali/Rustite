@@ -8,7 +8,7 @@
   "scripts": {
     "install": "node install.js",
     "build": "napi build --release",
-    "prebuild": "napi prebuild --platform --strip",
+    "prebuild": "napi build --platform --strip",
     "publish": "napi publish"
   },
   "devDependencies": {
