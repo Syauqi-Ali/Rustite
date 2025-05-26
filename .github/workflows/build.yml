@@ -37,10 +37,18 @@ jobs:
       - name: Build and prebuild
         run: npm run prebuild
 
+      - name: Create empty release commit & tag (if needed)
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git commit --allow-empty -m "chore(release): rustite@0.1.0"
+          git tag rustite@0.1.0
+          git push origin HEAD --tags
+
       - name: Run napi prepublish
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          napi prepublish
+          napi prepublish --gh-release-name "Release rustite@0.1.0"
 
           
