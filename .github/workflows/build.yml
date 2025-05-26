@@ -36,7 +36,7 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: npm install @napi-rs/cli
+        run: npm install --global @napi-rs/cli
 
       - name: Build napi binary
         run: napi build --platform --release
@@ -65,7 +65,7 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies (again)
-        run: npm install
+        run: npm install --global @napi-rs/cli
 
       - name: Download all build artifacts
         uses: actions/download-artifact@v4
@@ -82,7 +82,7 @@ jobs:
       - name: Run napi universal
         run: |
           mkdir -p native-universal
-          npx napi universal --dir native --dist native-universal
+          napi universal --dir native --dist native-universal
 
       - name: Commit and push universal binary
         run: |
