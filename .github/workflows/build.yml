@@ -3,10 +3,14 @@ name: Build & Upload Prebuild
 on:
   push:
     branches: [ "main" ]
+  release:
+    types: [published]
+
+permissions:
+  contents: write
 
 jobs:
   build:
-    name: Build on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -29,26 +33,18 @@ jobs:
       - name: Install napi cli
         run: npm install --global @napi-rs/cli
 
-      - name: Build and prebuild
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build prebuild
         run: npm run prebuild
 
-      - name: Get package version
-        id: pkg
-        run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
-
-      - name: Create GitHub Release (if not exists)
+      - name: Upload prebuild to GitHub Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          TAG_NAME=rustite@${{ steps.pkg.outputs.version }}
-          if ! gh release view "$TAG_NAME" &>/dev/null; then
-            gh release create "$TAG_NAME" --title "rustite $TAG_NAME" --notes "Automated release"
-          else
-            echo "Release $TAG_NAME already exists"
+          export TAG_NAME="${{ github.ref_name }}"
+          if [[ -z "$TAG_NAME" || "$TAG_NAME" == "main" ]]; then
+            TAG_NAME="latest"
           fi
-
-      - name: Run napi prepublish (upload prebuild to GitHub Release)
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          napi prepublish --gh-release-name "rustite@${{ steps.pkg.outputs.version }}"
+          gh release upload "$TAG_NAME" native/**/*
