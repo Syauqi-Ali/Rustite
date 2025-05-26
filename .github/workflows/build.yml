@@ -41,7 +41,10 @@ jobs:
 
       - name: Build with napi
         run: napi build --platform --release
-
+        
+      - name: Show build output
+        run: ls -R
+        
       - name: Upload release asset
         uses: softprops/action-gh-release@v2
         with:
