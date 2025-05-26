@@ -14,5 +14,10 @@
   "devDependencies": {
     "@napi-rs/cli": "^2.16.1"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "optionalDependencies": {
+    "rustite-win32-x64-msvc": "0.1.0",
+    "rustite-darwin-x64": "0.1.0",
+    "rustite-linux-x64-gnu": "0.1.0"
+  }
 }
