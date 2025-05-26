@@ -1,19 +1,41 @@
-name: Build Native and Commit
+name: Build Native and Push Once
 
 on:
   push:
     branches:
-      - main  # ubah sesuai dengan branch yang kamu pakai
+      - main
+    paths:
+      - 'src/**'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
+      - 'package.json'
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: linux-arm64-gnu
+          - os: ubuntu-latest
+            target: linux-x64-gnu
+          - os: ubuntu-latest
+            target: linux-x64-musl
+          - os: ubuntu-latest
+            target: linux-aarch64-gnu
+          - os: ubuntu-latest
+            target: linux-aarch64-musl
+          - os: ubuntu-latest
+            target: linux-aarch64-android
+          - os: ubuntu-latest
+            target: linux-armv7-android
+          - os: windows-latest
+            target: win32-x64-msvc
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # penting agar bisa commit dan push
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -26,10 +48,45 @@ jobs:
       - name: Build with napi
         run: napi build --platform --release
 
-      - name: Commit and push built files
+      - name: Rename and prepare artifact
+        run: |
+          mkdir -p artifact
+          mv ./*.node artifact/rustite.${{ matrix.target }}.node
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: rustite-${{ matrix.target }}
+          path: artifact/rustite.${{ matrix.target }}.node
+
+  commit:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: native
+
+      - name: Flatten directory structure
+        run: |
+          mkdir -p flat
+          find native -type f -name "*.node" -exec mv {} flat/ \;
+          rm -rf native
+          mkdir native
+          mv flat/* native/
+
+      - name: Commit and push all built files
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add native/
-          git commit -m "chore: update native builds [skip ci]" || echo "No changes"
+          git commit -m "chore: add all native builds [skip ci]" || echo "No changes"
           git push
+          
