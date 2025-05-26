@@ -14,10 +14,16 @@ jobs:
             target: linux-arm64-gnu
           - os: ubuntu-latest
             target: linux-x64-gnu
-          - os: macos-latest
-            target: darwin-x64
-          - os: macos-latest
-            target: darwin-arm64
+          - os: ubuntu-latest
+            target: linux-x64-musl
+          - os: ubuntu-latest
+            target: linux-aarch64-gnu
+          - os: ubuntu-latest
+            target: linux-aarch64-musl
+          - os: ubuntu-latest
+            target: linux-aarch64-android
+          - os: ubuntu-latest
+            target: linux-armv7-android
           - os: windows-latest
             target: win32-x64-msvc
 
