@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "main": "index.js",
   "files": [
-    "index.node"
+    "native/*"
   ],
+  "napi": {
+    "name": "native/rustite"
+  },
   "scripts": {
     "install": "node install.js",
     "build": "napi build --release",
