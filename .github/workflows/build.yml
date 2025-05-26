@@ -1,35 +1,19 @@
-name: Build and Upload Native Binaries
+name: Build Native and Commit
 
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - main  # ubah sesuai dengan branch yang kamu pakai
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-latest
-            target: linux-arm64-gnu
-          - os: ubuntu-latest
-            target: linux-x64-gnu
-          - os: ubuntu-latest
-            target: linux-x64-musl
-          - os: ubuntu-latest
-            target: linux-aarch64-gnu
-          - os: ubuntu-latest
-            target: linux-aarch64-musl
-          - os: ubuntu-latest
-            target: linux-aarch64-android
-          - os: ubuntu-latest
-            target: linux-armv7-android
-          - os: windows-latest
-            target: win32-x64-msvc
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # penting agar bisa commit dan push
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -37,17 +21,15 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: npm install --global @napi-rs/cli
+        run: npm install
 
       - name: Build with napi
         run: napi build --platform --release
-        
-      - name: Show build output
-        run: ls -R
-        
-      - name: Upload release asset
-        uses: softprops/action-gh-release@v2
-        with:
-          files: ./native/rustite.${{ matrix.target }}.node
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit and push built files
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add native/
+          git commit -m "chore: update native builds [skip ci]" || echo "No changes"
+          git push
