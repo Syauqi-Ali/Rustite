@@ -1,4 +1,4 @@
-name: Build Native and Push Once
+name: Build Native Universal
 
 on:
   push:
@@ -29,58 +29,65 @@ jobs:
             target: win32-x64-msvc
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '18'
 
       - name: Install dependencies
-        run: npm install --global @napi-rs/cli
+        run: npm install @napi-rs/cli
 
-      - name: Build with napi
+      - name: Build napi binary
         run: napi build --platform --release
 
-      - name: Rename and prepare artifact
+      - name: Rename and store .node file
         run: |
           mkdir -p artifact
-          mv ./*.node artifact/rustite.${{ matrix.target }}.node
+          mv ./native/*.node artifact/rustite.${{ matrix.target }}.node
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: rustite-${{ matrix.target }}
           path: artifact/rustite.${{ matrix.target }}.node
 
-  commit:
+  make-universal:
     runs-on: ubuntu-latest
     needs: build
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Download all artifacts
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies (again)
+        run: npm install
+
+      - name: Download all build artifacts
         uses: actions/download-artifact@v4
         with:
           path: native
 
-      - name: Flatten directory structure
+      - name: Flatten native dir
         run: |
-          mkdir -p flat
+          mkdir flat
           find native -type f -name "*.node" -exec mv {} flat/ \;
           rm -rf native
-          mkdir native
-          mv flat/* native/
+          mv flat native
 
-      - name: Commit and push all built files
+      - name: Run napi universal
+        run: |
+          mkdir -p native-universal
+          npx napi universal --dir native --dist native-universal
+
+      - name: Commit and push universal binary
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add native/
-          git commit -m "chore: add all native builds [skip ci]" || echo "No changes"
+          git add native-universal/
+          git commit -m "chore: add universal binary [skip ci]" || echo "No changes"
           git push
