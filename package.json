@@ -25,5 +25,11 @@
     "prepublishOnly": "napi prepublish -t npm",
     "universal": "napi universal",
     "version": "napi version"
+  },
+  "optionalDependencies": {
+    "rustite-win32-x64-msvc": "0.0.1",
+    "rustite-darwin-x64": "0.0.1",
+    "rustite-linux-x64-gnu": "0.0.1",
+    "rustite-android-arm64": "0.0.1"
   }
 }
