@@ -1,48 +1,35 @@
 {
   "name": "rustite",
-  "version": "1.0.1",
+  "version": "0.0.0",
   "main": "index.js",
   "types": "index.d.ts",
-  "license": "MIT",
-  "engines": {
-    "node": ">= 10"
-  },
   "napi": {
     "name": "rustite",
     "triples": {
       "additional": [
-        "aarch64-apple-darwin",
-        "aarch64-linux-android",
-        "aarch64-unknown-linux-gnu",
-        "aarch64-unknown-linux-musl",
-        "aarch64-pc-windows-msvc",
-        "armv7-unknown-linux-gnueabihf",
-        "x86_64-unknown-linux-musl",
-        "armv7-linux-androideabi"
+        "aarch64-linux-android"
       ]
     }
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@napi-rs/cli": "^2.18.4",
+    "ava": "^6.0.1"
+  },
+  "ava": {
+    "timeout": "3m"
+  },
+  "engines": {
+    "node": ">= 10"
   },
   "scripts": {
     "artifacts": "napi artifacts",
     "build": "napi build --platform --release",
     "build:debug": "napi build --platform",
     "prepublishOnly": "napi prepublish -t npm",
+    "test": "ava",
+    "universal": "napi universal",
     "version": "napi version"
   },
-  "devDependencies": {
-    "@napi-rs/cli": "^2.18.4",
-    "@types/node": "^22.15.21"
-  },
-  "optionalDependencies": {
-    "rustite.win64.node": "1.0.0",
-    "rustite-linux-x64-gnu": "1.0.0",
-    "rustite-darwin-arm64": "1.0.0",
-    "rustite-android-arm64": "1.0.0",
-    "rustite-linux-arm64-gnu": "1.0.0",
-    "rustite-linux-arm64-musl": "1.0.0",
-    "rustite-win32-arm64-msvc": "1.0.0",
-    "rustite-linux-arm-gnueabihf": "1.0.0",
-    "rustite-linux-x64-musl": "1.0.0",
-    "rustite-android-arm-eabi": "1.0.0"
-  }
+  "packageManager": "yarn@4.9.1"
 }

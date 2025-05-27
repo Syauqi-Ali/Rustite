@@ -310,6 +310,9 @@ if (!nativeBinding) {
   throw new Error(`Failed to load native binding`)
 }
 
-const { Database } = nativeBinding
+const { Database, Table, Record, RecordList } = nativeBinding
 
 module.exports.Database = Database
+module.exports.Table = Table
+module.exports.Record = Record
+module.exports.RecordList = RecordList

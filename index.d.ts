@@ -5,6 +5,25 @@
 
 export declare class Database {
   constructor(path: string)
+  table(name: string): Table
   execute(sql: string): void
   queryAll(sql: string): string
+}
+export declare class Table {
+  find(id: number): Record | null
+  insert(jsData: object): number
+  where(column: string, op: string, value: string): RecordList
+  first(): Record | null
+  last(): Record | null
+}
+export declare class Record {
+  data: any
+  update(jsData: object): Record
+  destroy(): void
+  delete(): void
+}
+export declare class RecordList {
+  first(): Record | null
+  last(): Record | null
+  get data(): Array<any>
 }

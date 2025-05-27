@@ -1,6 +1,6 @@
 {
-  "name": "rustite.win64.node",
-  "version": "1.0.0",
+  "name": "rustite-win32-x64-msvc",
+  "version": "0.0.0",
   "os": [
     "win32"
   ],
