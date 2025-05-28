@@ -12,7 +12,7 @@ npm install rustqlite
 
 ## 🚀 Quick Start
 
-1. Initialize the Database
+### 1. Initialize the Database
 ```js
 const { Database } = require('rustqlite');
 
@@ -27,7 +27,7 @@ db.execute(`
 `);
 ```
 
-2. Insert a Record
+### 2. Insert a Record
 ```js
 const users = db.table('users');
 
