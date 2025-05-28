@@ -1,4 +1,3 @@
-// File: lib.rs
 use napi::{Env, JsObject, Result, Error};
 use napi_derive::napi;
 use rusqlite::{Connection, Row, Statement, params, ToSql};

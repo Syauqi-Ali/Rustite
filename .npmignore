@@ -13,4 +13,4 @@ __test__
 renovate.json
 src
 test.js
-node_module
+node_modules
