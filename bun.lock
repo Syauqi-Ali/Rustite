@@ -3,38 +3,26 @@
   "workspaces": {
     "": {
       "name": "Rustite",
-      "dependencies": {
-        "prettier": "^3.5.3",
-        "prettier-plugin-rust": "^0.1.9",
-      },
       "devDependencies": {
         "@napi-rs/cli": "^2.18.4",
       },
       "optionalDependencies": {
-        "rustite-android-arm64": "1.2.5",
-        "rustite-darwin-x64": "1.2.5",
-        "rustite-linux-arm64-gnu": "1.2.5",
-        "rustite-linux-x64-gnu": "1.2.5",
+        "rustite-android-arm64": "2.0.0",
+        "rustite-darwin-x64": "2.0.0",
+        "rustite-linux-arm64-gnu": "2.0.0",
+        "rustite-linux-x64-gnu": "2.0.0",
       },
     },
   },
   "packages": {
     "@napi-rs/cli": ["@napi-rs/cli@2.18.4", "", { "bin": { "napi": "scripts/index.js" } }, "sha512-SgJeA4df9DE2iAEpr3M2H0OKl/yjtg1BnRI5/JyowS71tUWhrfSu2LT0V3vlHET+g1hBVlrO60PmEXwUEKp8Mg=="],
 
-    "jinx-rust": ["jinx-rust@0.1.6", "", {}, "sha512-qP+wtQL1PrDDFwtPKhNGtjWOmijCrKdfUHWTV2G/ikxfjrh+cjdvkQTmny9RAsVF0jiui9m+F0INWu4cuRcZeQ=="],
+    "rustite-android-arm64": ["rustite-android-arm64@2.0.0", "", { "os": "android", "cpu": "arm64" }, "sha512-xbC3PEPP3HrZ7BBdOl+fzccyU7RpRrt3p3NJCgz1uEbT0som8mSxqjSHRn3BCWrUj0IyBdVtuQHZrbxFB2ht8A=="],
 
-    "prettier": ["prettier@3.5.3", "", { "bin": { "prettier": "bin/prettier.cjs" } }, "sha512-QQtaxnoDJeAkDvDKWCLiwIXkTgRhwYDEQCghU9Z6q03iyek/rxRh/2lC3HB7P8sWT2xC/y5JDctPLBIGzHKbhw=="],
+    "rustite-darwin-x64": ["rustite-darwin-x64@2.0.0", "", { "os": "darwin", "cpu": "x64" }, "sha512-CuWDGGR3w/l9QA6C/Okii5yi0uxxa6uwN9FinrgE0rjKihWlrOs52rr/OwlhatfSDSnlTSqHJbduBQD/2ABNBQ=="],
 
-    "prettier-plugin-rust": ["prettier-plugin-rust@0.1.9", "", { "dependencies": { "jinx-rust": "0.1.6", "prettier": "^2.7.1" } }, "sha512-n1DTTJQaHMdnoG/+nKUvBm3EKsMVWsYES2UPCiOPiZdBrmuAO/pX++m7L3+Hz3uuhtddpH0HRKHB2F3jbtJBOQ=="],
+    "rustite-linux-arm64-gnu": ["rustite-linux-arm64-gnu@2.0.0", "", { "os": "linux", "cpu": "arm64" }, "sha512-/FGKtAEnMLSju0fPtn2v8XxhNSMRKbgnE0Uqugt6FgpK712tn4ZiqhhArOkJCG+y7mPuvh817G1hhGbQRoG6Cw=="],
 
-    "rustite-android-arm64": ["rustite-android-arm64@1.2.5", "", { "os": "android", "cpu": "arm64" }, "sha512-uDZNPOqQMTkHxq129Mh5YrCGaMqHfYrATxKLCZkaQbzCiii6LvOLNH7kI/kuAysoMNu3fmJ2/GdjV2xsSr7+kA=="],
-
-    "rustite-darwin-x64": ["rustite-darwin-x64@1.2.5", "", { "os": "darwin", "cpu": "x64" }, "sha512-BrgWBSGUBnDKv9E56tpzoy7TF4jcdLwmH4gTay29vsTkievLaGQqek+k5wT2gckrwB+Lp6O7ygVbIKqIODIRVw=="],
-
-    "rustite-linux-arm64-gnu": ["rustite-linux-arm64-gnu@1.2.5", "", { "os": "linux", "cpu": "arm64" }, "sha512-oPOHjatyDC+rxYZ5tIvnRHD9/yyJ/FT2yAMeg1xbrBVMV2+gwpQh33GzUbJ/9eqMyL8/5D3GsGpD1ndDAD5eqg=="],
-
-    "rustite-linux-x64-gnu": ["rustite-linux-x64-gnu@1.2.5", "", { "os": "linux", "cpu": "x64" }, "sha512-krytdLqsJJDduU0FB4P6d5P7NEwTasXYLDBhFFw+AP1/z6pCLW2FyTmlZSVSmkS627Lut8/B9ehHKkfkbOxn0g=="],
-
-    "prettier-plugin-rust/prettier": ["prettier@2.8.8", "", { "bin": { "prettier": "bin-prettier.js" } }, "sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q=="],
+    "rustite-linux-x64-gnu": ["rustite-linux-x64-gnu@2.0.0", "", { "os": "linux", "cpu": "x64" }, "sha512-qOB8sLZrCTQE85Fy1HLjEtJusU0NvL74DpjPK+KFwAIukndLHcCHLggdbAC9kKKGNlWJEoUmiiOxL0W0UeZBng=="],
   }
 }

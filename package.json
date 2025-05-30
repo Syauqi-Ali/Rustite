@@ -1,15 +1,15 @@
 {
   "name": "rustite",
-  "version": "2.0.0",
+  "version": "2.2.0",
   "main": "index.js",
   "devDependencies": {
     "@napi-rs/cli": "^2.18.4"
   },
   "optionalDependencies": {
-    "rustite-darwin-x64": "1.2.5",
-    "rustite-linux-x64-gnu": "1.2.5",
-    "rustite-android-arm64": "1.2.5",
-    "rustite-linux-arm64-gnu": "1.2.5"
+    "rustite-darwin-x64": "2.0.0",
+    "rustite-linux-x64-gnu": "2.0.0",
+    "rustite-android-arm64": "2.0.0",
+    "rustite-linux-arm64-gnu": "2.0.0"
   },
   "engines": {
     "node": ">= 10"
@@ -35,9 +35,5 @@
     "universal": "napi universal",
     "version": "napi version"
   },
-  "types": "index.d.ts",
-  "dependencies": {
-    "prettier": "^3.5.3",
-    "prettier-plugin-rust": "^0.1.9"
-  }
+  "types": "index.d.ts"
 }
