@@ -7,18 +7,19 @@ Rustite is a native Node.js module powered by [Rust](https://www.rust-lang.org/)
 ## 📦 Installation
 
 ```bash
-npm install rustqlite
+npm install rustite
 ```
 
 ## 🚀 Quick Start
 
 ### 1. Initialize the Database
+
 ```js
-const { Database } = require('rustqlite');
+const { Database } = require('rustite');
 
 const db = new Database('mydb.sqlite');
 
-db.execute(`
+await db.execute(`
   CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
@@ -28,49 +29,75 @@ db.execute(`
 ```
 
 ### 2. Insert a Record
+
 ```js
 const users = db.table('users');
 
-const id = users.insert({ name: 'Alice', age: 30 });
-console.log('Inserted user with ID:', id);
+await users.insert({ name: 'Alice', age: 30 });
 ```
 
 ### 3. Find a Record by ID
+
 ```js
-const user = users.find(1);
-console.log('User:', user?.data);
+const user = await users.find(1);
+console.log('User:', user);
 ```
 
 ### 4. Query with Conditions
+
 ```js
-const adults = users.where('age', '>=', '18');
+const adults = users.where('age', '>=', 18);
 
-console.log('Adults:', adults.data);
+const result = await adults.get();
+console.log('Adults:', result);
 
-const first = adults.first();
-const last = adults.last();
+const first = await adults.first();
+const last = await adults.last();
 ```
 
 ### 5. Update a Record
+
 ```js
-const user = users.find(1);
+await users.update(1, { age: 31 });
+
+// Or
+
+const user = await users.find(1);
 if (user) {
-  user.update({ age: 31 });
+  await user.update({ age: 31 });
 }
 ```
 
 ### 6. Delete a Record
+
 ```js
-const user = users.find(1);
+await users.destroy(1);
+
+// Or
+
+const user = await users.find(1);
 if (user) {
-  user.destroy(); // or user.delete();
+  await user.destroy();
 }
 ```
 
-### 7. Custom SQL Queries
+### 7. Chained Queries and Nested Conditions
+
 ```js
-const result = db.queryAll('SELECT name FROM users WHERE age > 20');
+const result = await users
+  .where('age', '>=', 18)
+  .where('name', 'LIKE', '%A%')
+  .order_by('id', 'DESC')
+  .get();
+
 console.log(result);
+```
+
+### 8. Custom SQL Queries
+
+```js
+const rows = await db.query('SELECT name FROM users WHERE age > 20');
+console.log(rows);
 ```
 
 ## 🧠 API Overview
@@ -78,82 +105,96 @@ console.log(result);
 ### `Database`
 
 * `new(path: string)`
+
   * Opens or creates a SQLite database at the given file path.
 
 * `table(name: string): Table`
+
   * Returns a `Table` instance bound to a specific table name.
 
-* `execute(sql: string): void`
+* `execute(sql: string): Promise<void>`
+
   * Executes raw SQL (e.g., CREATE TABLE, DROP TABLE, etc).
 
-* `query_all(sql: string): string (JSON)`
-  * Executes a SELECT query and returns the results as a JSON string.
+* `query(sql: string): Promise<object[]>`
+
+  * Executes a SELECT query and returns the results as parsed objects.
 
 ---
 
 ### `Table`
 
-* `find(id: number): Record | null`
+* `find(id: string | number): Promise<Record | null>`
+
   * Retrieves a single record by its primary key `id`.
 
-* `insert(obj: object): number`
+* `insert(obj: object): Promise<number>`
+
   * Inserts a new row with the given object fields. Returns the new row ID.
 
-* `where(column: string, op: string, value: string): RecordList`
-  * Performs a filtered query (e.g., `where("age", ">=", "21")`).
+* `where(column: string, op: string, value: any): Table`
 
-* `first(): Record | null`
-  * Returns the first record in ascending `id` order.
+  * Adds a filter condition (e.g., `where("age", ">=", 21)`). Supports `=`, `!=`, `<`, `>`, `LIKE`, `IN`, `IS NULL`, and more.
 
-* `last(): Record | null`
-  * Returns the last record in descending `id` order.
+* `order_by(column: string, direction?: 'ASC' | 'DESC'): Table`
 
----
+  * Adds ordering to the current query.
 
-### `Record`
+* `get(): Promise<object[]>`
 
-* `.data: object`
-  * JSON representation of the row.
+  * Executes the built query and returns the list of matching records.
 
-* `update(obj: object): Record`
-  * Updates the row with new values from `obj`.
+* `first(): Promise<object | null>`
 
-* `destroy(): void`
-  * Permanently deletes the row from the table.
+  * Returns the first matching record ordered by ascending `id`.
 
-* `delete(): void`
-  * Alias for `destroy()`.
+* `last(): Promise<object | null>`
 
----
+  * Returns the last matching record ordered by descending `id`.
 
-### `RecordList`
+* `update(id: string | number, object: object): Promise<void>`
 
-* `.data: object[]`
-  * Array of JSON records contained in the result set.
+  * Updates the record with the given ID.
 
-* `first(): Record | null`
-  * First record in the list.
+* `destroy(id: string | number): Promise<void>`
 
-* `last(): Record | null`
-  * Last record in the list.
+  * Deletes the record with the given ID.
 
 ---
 
-# 🧪 Full Example
+### `Record` (Instance returned by `.find()`)
+
+* `update(object: object): Promise<void>`
+
+  * Updates the current record in the database.
+
+* `destroy(): Promise<void>`
+
+  * Deletes the current record from the database.
+
+---
+
+# 🥪 Full Example
 
 ```js
-const db = new Database('app.sqlite');
-db.execute(`CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY, title TEXT, content TEXT)`);
+const { Database } = require('rustite');
 
-const posts = db.table('posts');
+async function main() {
+  const db = new Database('app.sqlite');
+  await db.execute(`CREATE TABLE IF NOT EXISTS posts (id INTEGER PRIMARY KEY, title TEXT, content TEXT)`);
 
-const postId = posts.insert({ title: 'Hello', content: 'World' });
+  const posts = db.table('posts');
 
-const post = posts.find(postId);
-post.update({ content: 'Updated content' });
+  const postId = await posts.insert({ title: 'Hello', content: 'World' });
 
-const allPosts = posts.where('id', '>=', '1');
-console.log(allPosts.data);
+  const post = await posts.find(postId);
+  if (post) await post.update({ content: 'Updated content' });
 
-post.destroy();
+  const allPosts = await posts.where('id', '>=', 1).get();
+  console.log(allPosts);
+
+  if (post) await post.destroy();
+}
+
+main();
 ```

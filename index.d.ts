@@ -5,25 +5,28 @@
 
 export declare class Database {
   constructor(path: string)
-  table(name: string): Table
   execute(sql: string): void
-  queryAll(sql: string): string
+  query(sql: string): Array<object>
+  table(name: string): Table
 }
 export declare class Table {
-  find(id: number): Record | null
-  insert(jsData: object): number
-  where(column: string, op: string, value: string): RecordList
-  first(): Record | null
-  last(): Record | null
+  find(id: number | string): object | null
+  get(): Array<object>
+  all(): Array<object>
+  where(column: string, opOrValue: string | string | number, valueOpt?: string | number | undefined | null): FilteredTable
+  insert(data: unknown): void
+  create(data: unknown): void
+  update(id: string | number, data: object): void
+  orderBy(column: string, direction?: string | undefined | null): FilteredTable
+  destroy(id: string | number): void
 }
-export declare class Record {
-  data: any
-  update(jsData: object): Record
-  destroy(): void
-  delete(): void
-}
-export declare class RecordList {
-  first(): Record | null
-  last(): Record | null
-  get data(): Array<any>
+export declare class FilteredTable {
+  first(): object | null
+  last(): object | null
+  orderBy(column: string, direction?: string | undefined | null): FilteredTable
+  where(column: string, opOrValue: string | string | number, valueOpt?: string | number | undefined | null): FilteredTable
+  get(): Array<object>
+  all(): Array<object>
+  update(data: object): void
+  set destroy()
 }

@@ -191,19 +191,16 @@ jobs:
       - name: Generate version tag
         id: version
         run: echo "tag=v$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_OUTPUT
-
       - name: Create Git tag
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git tag ${{ steps.version.outputs.tag }}
           git push origin ${{ steps.version.outputs.tag }}
-
       - name: Zip package
         run: |
           mkdir -p release
           zip -r ./release/package.zip ./npm
-
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
