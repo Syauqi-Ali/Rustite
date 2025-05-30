@@ -16,3 +16,4 @@ test.js
 node_modules
 *.sqlite
 *.lock
+*.db
