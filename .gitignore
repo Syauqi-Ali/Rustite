@@ -197,3 +197,5 @@ Cargo.lock
 *.node
 npm
 test.js
+*.lock
+*.sqlite
