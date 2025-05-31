@@ -1,6 +1,6 @@
 {
   "name": "rustite-linux-x64-gnu",
-  "version": "2.2.0",
+  "version": "2.2.3",
   "os": [
     "linux"
   ],

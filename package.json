@@ -1,15 +1,15 @@
 {
   "name": "rustite",
-  "version": "2.2.0",
+  "version": "2.2.3",
   "main": "index.js",
   "devDependencies": {
     "@napi-rs/cli": "^2.18.4"
   },
   "optionalDependencies": {
-    "rustite-darwin-x64": "2.0.0",
-    "rustite-linux-x64-gnu": "2.0.0",
-    "rustite-android-arm64": "2.0.0",
-    "rustite-linux-arm64-gnu": "2.0.0"
+    "rustite-darwin-x64": "2.2.0",
+    "rustite-linux-x64-gnu": "2.2.0",
+    "rustite-android-arm64": "2.2.0",
+    "rustite-linux-arm64-gnu": "2.2.0"
   },
   "engines": {
     "node": ">= 10"
